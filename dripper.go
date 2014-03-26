@@ -55,7 +55,7 @@ func (d *Dripper) Drip() {
 			for _ = dripper.cursor; dripper.cursor != offset; dripper.cursor++ {
 				if d.drops[d.cursor] != nil {
 					for _, drop := range dripper.drops[d.cursor] {
-						d.Faucet <- drop.Key
+						d.Faucet <- drop.Item
 					}
 				}
 				if dripper.cursor == len(dripper.drops)-1 {
