@@ -45,6 +45,8 @@ func (d *Dripper) AddDrop(key string, item interface{}, interval int) {
 	io.WriteString(h, key)
 	hash := float64(binary.LittleEndian.Uint32(h.Sum(nil)[0:4]))
 	modResult := math.Mod(hash, float64(interval))
+	d.lock.Lock()
+	defer d.lock.Unlock()
 	for x := 0; x < 60/interval; x++ {
 		index := uint16(modResult) + (uint16(x) * uint16(interval))
 		if d.drops[index] == nil {
